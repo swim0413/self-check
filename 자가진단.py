@@ -122,32 +122,21 @@ class 자가진단:
 		return result.json()
 		
 	def selfCheck(self):
-		if self.searchSchool():
-			print("학교 검색 완료!")
-			if self.login():
-				print("로그인 성공!")
-				if self.hasPW():
-					print("비밀번호 소유중!")
-					if self.verifyPW():
-						print("비밀번호 확인 완료!")
-						if self.selectStd():
-							print("학생 선택 완료!")
-							if self.stdInfo():
-								print("학생 정보 확인 완료!")
-								print("자가진단 중~..기다려 주세요")
-								if self.execute():
-									print(self.execute()["registerDtm"]+"에 "+self.name+"님 자가진단 완료!")
-								else:
-									print("자가진단 실패!")
-							else:
-								print("학생 정보가 없습니다!")
-						else:
-							print("학생 선택 실패!")
-					else:
-						print("비밀번호 검증 실패!")
-				else:
-					print("비밀번호가 설정 되어 있지 않습니다")
-			else:
-				print("로그인 실패!")
+		if not self.searchSchool():
+			return print("학교를 찾을수 없습니다!")
+		if not self.login():
+			return print("로그인 실패!")
+		if not self.hasPW():
+			return print("비밀번호가 설정 되어 있지 않습니다")
+		if not self.verifyPW():
+			print("비밀번호 검증 실패!")
+		if not self.selectStd():
+			print("학생 선택 실패!")
+		if not self.stdInfo():
+			print("학생 정보가 없습니다!")
+		print("학생 정보 확인 완료!")
+		print("자가진단 중~..기다려 주세요")
+		if self.execute():
+			return print(self.execute()["registerDtm"]+"에 "+self.name+"님 자가진단 완료!")
 		else:
-			print("학교를 찾을수 없습니다!")
+			return print("자가진단 실패!")
